@@ -5,12 +5,15 @@ import com.dingtalk.api.DingTalkClient;
 import com.dingtalk.api.request.*;
 import com.dingtalk.api.response.*;
 import com.taobao.api.ApiException;
+import com.taobao.api.FileItem;
+import com.taobao.api.internal.util.WebUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -426,41 +429,32 @@ public class DingTalkUtils {
     }
 
 
+    /**
+     * 上传文件
+     * @param filepath
+     */
+    public void uploadFile(String filepath) {
+        OapiFileUploadSingleRequest request = new OapiFileUploadSingleRequest();
+        request.setFileSize(1000L);
+        request.setAgentId(AGENTID);
+        try {
+            DingTalkClient client = new DefaultDingTalkClient("https://oapi.dingtalk.com/file/upload/single?"+ WebUtils.buildQuery(request.getTextParams(),"utf-8"));
+            // 必须重新new一个请求
+            request = new OapiFileUploadSingleRequest();
+            request.setFile(new FileItem(filepath));
+            OapiFileUploadSingleResponse response = client.execute(request, getAccessToken());
+            log.debug(response.toString());
+            log.debug(response.getMediaId());
 
-//    public void sentGroupMessage() {
-//        DingTalkClient client = new DefaultDingTalkClient("https://oapi.dingtalk.com/chat/send");
-//        OapiChatSendRequest request = new OapiChatSendRequest();
-//        request.setChatid(CHAT_ID);
-//        OapiChatSendRequest.ActionCard actionCard = new OapiChatSendRequest.ActionCard();
-//
-//        actionCard.setTitle("下午好，打扰了，这是一个测试标题");
-//        actionCard.setMarkdown("markdown 内容，今天雨夹雪，雨夹雪，雨夹雪，\n  ###### 6号标题\n + 1 + 2 + 3，");
-//        actionCard.setBtnOrientation("1");
-//
-//        OapiChatSendRequest.BtnJson btn1 = new OapiChatSendRequest.BtnJson();
-//        btn1.setTitle("test");
-//        btn1.setActionUrl("http://www.baidu.com");
-//
-//        OapiChatSendRequest.BtnJson btn2 = new OapiChatSendRequest.BtnJson();
-//        btn2.setTitle("PC端");
-//        btn2.setActionUrl("dingtalk://dingtalkclient/action/openapp?corpid=dingeff939842ad9207f35c2f4657eb6378f&container_type=work_platform&app_id=0_313704868&redirect_type=jump&redirect_url=http://www.dingdev.xyz:8080/paper/vote/2");
-//
-//        List<OapiChatSendRequest.BtnJson> btnJsonList = new ArrayList<>();
-//
-//        btnJsonList.add(btn1);
-//        btnJsonList.add(btn2);
-//
-//        actionCard.setBtnJsonList(btnJsonList);
-//
-//        request.setActionCard(actionCard);
-//        request.setMsgtype("action_card");
-//
-//        try {
-//            OapiChatSendResponse response = client.execute(request, getAccessToken());
-//        } catch (ApiException e) {
-//            e.printStackTrace();
-//        }
-//    }
+        } catch (Exception e) {
+
+        }
+
+    }
+
+    public void getCustomSpace() {
+        
+    }
 
 
 
