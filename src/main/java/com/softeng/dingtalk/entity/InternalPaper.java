@@ -37,9 +37,9 @@ public class InternalPaper {
     private String journal;
 
     /**
-     * 出刊时间
+     * 更新时间
      */
-    private LocalDate issueDate;
+    private LocalDate updateDate;
 
     /**
      * 论文等级
@@ -67,18 +67,18 @@ public class InternalPaper {
         this.id = id;
     }
 
-    public InternalPaper(String title, String journal, PaperType paperType, LocalDate issueDate) {
+    public InternalPaper(String title, String journal, PaperType paperType, LocalDate updateDate) {
         this.title = title;
         this.journal = journal;
         this.paperType = paperType;
-        this.issueDate = issueDate;
+        this.updateDate = updateDate;
     }
 
     public void update(String title, String journal, PaperType paperType, LocalDate issueDate) {
         this.title = title;
         this.journal = journal;
         this.paperType = paperType;
-        this.issueDate = issueDate;
+        this.updateDate = issueDate;
     }
 
 

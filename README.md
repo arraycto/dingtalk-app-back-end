@@ -89,7 +89,7 @@
   </tbody>
 </table>
 
-+ sdk使用代码：[DingTalkUtils.java](https://github.com/zhanyeye/dingtalk-springboot/blob/master/src/main/java/com/softeng/dingtalk/component/DingTalkUtils.java)
++ sdk使用代码：[com.softeng.dingtalk.api](https://github.com/zhanyeye/dingtalk-springboot/tree/master/src/main/java/com/softeng/dingtalk/api)
 + 前端代码：[dingtalk-vue](https://github.com/zhanyeye/dingtalk-vue) (👈预览)
 
 
